@@ -7,11 +7,13 @@ import nachos.machine.*;
 /**
  * A single translation between a virtual page and a physical page.
  */
-public final class TranslationEntry {
+public final class TranslationEntry 
+{
 	/**
 	 * Allocate a new invalid translation entry.
 	 */
-	public TranslationEntry() {
+	public TranslationEntry() 
+	{
 		valid = false;
 	}
 
@@ -26,7 +28,8 @@ public final class TranslationEntry {
 	 * @param dirty the dirty bit.
 	 */
 	public TranslationEntry(int vpn, int ppn, boolean valid, boolean readOnly,
-			boolean used, boolean dirty) {
+			boolean used, boolean dirty) 
+	{
 		this.vpn = vpn;
 		this.ppn = ppn;
 		this.valid = valid;
@@ -41,7 +44,8 @@ public final class TranslationEntry {
 	 * 
 	 * @param entry the translation entry to copy.
 	 */
-	public TranslationEntry(TranslationEntry entry) {
+	public TranslationEntry(TranslationEntry entry) 
+	{
 		vpn = entry.vpn;
 		ppn = entry.ppn;
 		valid = entry.valid;

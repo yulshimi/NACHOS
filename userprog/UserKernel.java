@@ -3,15 +3,18 @@ package nachos.userprog;
 import nachos.machine.*;
 import nachos.threads.*;
 import nachos.userprog.*;
-
+import java.util.LinkedList;
+import java.util.HashMap;
 /**
  * A kernel that can support multiple user processes.
  */
-public class UserKernel extends ThreadedKernel {
+public class UserKernel extends ThreadedKernel 
+{
 	/**
 	 * Allocate a new user kernel.
 	 */
-	public UserKernel() {
+	public UserKernel() 
+	{
 		super();
 	}
 
@@ -19,7 +22,8 @@ public class UserKernel extends ThreadedKernel {
 	 * Initialize this kernel. Creates a synchronized console and sets the
 	 * processor's exception handler.
 	 */
-	public void initialize(String[] args) {
+	public void initialize(String[] args) 
+	{
 		super.initialize(args);
 
 		console = new SynchConsole(Machine.console());
@@ -29,12 +33,18 @@ public class UserKernel extends ThreadedKernel {
 				exceptionHandler();
 			}
 		});
+		
+		for(int i=0; i < Machine.processor().getNumPhysPages(); ++i)
+		{
+			m_page_list.add(i);
+		}
 	}
 
 	/**
 	 * Test the console device.
 	 */
-	public void selfTest() {
+	public void selfTest() 
+	{
 		super.selfTest();
 
 		System.out.println("Testing the console device. Typed characters");
@@ -55,7 +65,8 @@ public class UserKernel extends ThreadedKernel {
 	 * 
 	 * @return the current process, or <tt>null</tt> if no process is current.
 	 */
-	public static UserProcess currentProcess() {
+	public static UserProcess currentProcess() 
+	{
 		if (!(KThread.currentThread() instanceof UThread))
 			return null;
 
@@ -75,7 +86,8 @@ public class UserKernel extends ThreadedKernel {
 	 * error), the processor's BadVAddr register identifies the virtual address
 	 * that caused the exception.
 	 */
-	public void exceptionHandler() {
+	public void exceptionHandler() 
+	{
 		Lib.assertTrue(KThread.currentThread() instanceof UThread);
 
 		UserProcess process = ((UThread) KThread.currentThread()).process;
@@ -90,7 +102,8 @@ public class UserKernel extends ThreadedKernel {
 	 * 
 	 * @see nachos.machine.Machine#getShellProgramName
 	 */
-	public void run() {
+	public void run() 
+	{
 		super.run();
 
 		UserProcess process = UserProcess.newUserProcess();
@@ -104,13 +117,22 @@ public class UserKernel extends ThreadedKernel {
 	/**
 	 * Terminate this kernel. Never returns.
 	 */
-	public void terminate() {
+	public void terminate() 
+	{
 		super.terminate();
 	}
 
 	/** Globally accessible reference to the synchronized console. */
 	public static SynchConsole console;
-
+	protected static final int pageSize = Processor.pageSize;
 	// dummy variables to make javac smarter
+	//public static Lock m_num_process_lock = new Lock();
+	//public static int m_num_of_process = 0;
 	private static Coff dummy1 = null;
+	//public static Lock m_process_lock = new Lock();
+	//public static Lock m_page_list_lock = new Lock();
+	//public static Lock m_file_storage_lock = new Lock();
+	//public static int m_process_id = 0;
+	//public static HashMap<String, fileStorage> m_file_storage = new HashMap<String, fileStorage>();
+	public static LinkedList<Integer> m_page_list = new LinkedList<Integer>();
 }

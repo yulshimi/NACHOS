@@ -7,7 +7,8 @@ import java.io.EOFException;
 /**
  * A file that supports reading, writing, and seeking.
  */
-public class OpenFile {
+public class OpenFile 
+{
 	/**
 	 * Allocate a new <tt>OpenFile</tt> object with the specified name on the
 	 * specified file system.
@@ -15,7 +16,8 @@ public class OpenFile {
 	 * @param fileSystem the file system to which this file belongs.
 	 * @param name the name of the file, on that file system.
 	 */
-	public OpenFile(FileSystem fileSystem, String name) {
+	public OpenFile(FileSystem fileSystem, String name) 
+	{
 		this.fileSystem = fileSystem;
 		this.name = name;
 	}
@@ -24,7 +26,8 @@ public class OpenFile {
 	 * Allocate a new unnamed <tt>OpenFile</tt> that is not associated with any
 	 * file system.
 	 */
-	public OpenFile() {
+	public OpenFile() 
+	{
 		this(null, "unnamed");
 	}
 
@@ -33,7 +36,8 @@ public class OpenFile {
 	 * 
 	 * @return the file system to which this file belongs.
 	 */
-	public FileSystem getFileSystem() {
+	public FileSystem getFileSystem() 
+	{
 		return fileSystem;
 	}
 
@@ -42,7 +46,8 @@ public class OpenFile {
 	 * 
 	 * @return the name of this open file.
 	 */
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
@@ -57,7 +62,8 @@ public class OpenFile {
 	 * @param length the number of bytes to read.
 	 * @return the actual number of bytes successfully read, or -1 on failure.
 	 */
-	public int read(int pos, byte[] buf, int offset, int length) {
+	public int read(int pos, byte[] buf, int offset, int length) 
+	{
 		return -1;
 	}
 
@@ -73,7 +79,8 @@ public class OpenFile {
 	 * @return the actual number of bytes successfully written, or -1 on
 	 * failure.
 	 */
-	public int write(int pos, byte[] buf, int offset, int length) {
+	public int write(int pos, byte[] buf, int offset, int length) 
+	{
 		return -1;
 	}
 
@@ -82,27 +89,31 @@ public class OpenFile {
 	 * 
 	 * @return the length of this file, or -1 if this file has no length.
 	 */
-	public int length() {
+	public int length() 
+	{
 		return -1;
 	}
 
 	/**
 	 * Close this file and release any associated system resources.
 	 */
-	public void close() {
+	public void close() 
+	{
 	}
 
 	/**
 	 * Set the value of the current file pointer.
 	 */
-	public void seek(int pos) {
+	public void seek(int pos) 
+	{
 	}
 
 	/**
 	 * Get the value of the current file pointer, or -1 if this file has no
 	 * pointer.
 	 */
-	public int tell() {
+	public int tell() 
+	{
 		return -1;
 	}
 
@@ -116,7 +127,8 @@ public class OpenFile {
 	 * @param length the number of bytes to read.
 	 * @return the actual number of bytes successfully read, or -1 on failure.
 	 */
-	public int read(byte[] buf, int offset, int length) {
+	public int read(byte[] buf, int offset, int length) 
+	{
 		return -1;
 	}
 
@@ -132,7 +144,8 @@ public class OpenFile {
 	 * @return the actual number of bytes successfully written, or -1 on
 	 * failure.
 	 */
-	public int write(byte[] buf, int offset, int length) {
+	public int write(byte[] buf, int offset, int length) 
+	{
 		return -1;
 	}
 

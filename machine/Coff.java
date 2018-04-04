@@ -7,11 +7,13 @@ import java.io.EOFException;
 /**
  * A COFF (common object file format) loader.
  */
-public class Coff {
+public class Coff 
+{
 	/**
 	 * Allocate a new Coff object.
 	 */
-	protected Coff() {
+	protected Coff() 
+	{
 		file = null;
 		entryPoint = 0;
 		sections = null;
@@ -37,19 +39,23 @@ public class Coff {
 	 * @param file the file containing the executable.
 	 * @exception EOFException if the executable is corrupt.
 	 */
-	public Coff(OpenFile file) throws EOFException {
+	public Coff(OpenFile file) throws EOFException 
+	{
 		this.file = file;
 
 		Coff coff = Machine.autoGrader().createLoader(file);
 
-		if (coff != null) {
+		if (coff != null) 
+		{
 			this.entryPoint = coff.entryPoint;
 			this.sections = coff.sections;
 		}
-		else {
+		else 
+		{
 			byte[] headers = new byte[headerLength + aoutHeaderLength];
 
-			if (file.length() < headers.length) {
+			if (file.length() < headers.length) 
+			{
 				Lib.debug(dbgCoff, "\tfile is not executable");
 				throw new EOFException();
 			}
@@ -62,15 +68,18 @@ public class Coff {
 			int flags = Lib.bytesToUnsignedShort(headers, 18);
 			entryPoint = Lib.bytesToInt(headers, headerLength + 16);
 
-			if (magic != 0x0162) {
+			if (magic != 0x0162) 
+			{
 				Lib.debug(dbgCoff, "\tincorrect magic number");
 				throw new EOFException();
 			}
-			if (numSections < 2 || numSections > 10) {
+			if (numSections < 2 || numSections > 10) 
+			{
 				Lib.debug(dbgCoff, "\tbad section count");
 				throw new EOFException();
 			}
-			if ((flags & 0x0003) != 0x0003) {
+			if ((flags & 0x0003) != 0x0003) 
+			{
 				Lib.debug(dbgCoff, "\tbad header flags");
 				throw new EOFException();
 			}
@@ -78,13 +87,16 @@ public class Coff {
 			int offset = headerLength + optionalHeaderLength;
 
 			sections = new CoffSection[numSections];
-			for (int s = 0; s < numSections; s++) {
+			for (int s = 0; s < numSections; s++) 
+			{
 				int sectionEntryOffset = offset + s * CoffSection.headerLength;
-				try {
+				try 
+				{
 					sections[s] = new CoffSection(file, this,
 							sectionEntryOffset);
 				}
-				catch (EOFException e) {
+				catch (EOFException e) 
+				{
 					Lib.debug(dbgCoff, "\terror loading section " + s);
 					throw e;
 				}
@@ -97,7 +109,8 @@ public class Coff {
 	 * 
 	 * @return the number of sections in the executable.
 	 */
-	public int getNumSections() {
+	public int getNumSections() 
+	{
 		return sections.length;
 	}
 
@@ -109,7 +122,8 @@ public class Coff {
 	 * @param sectionNumber the section to select.
 	 * @return an object that can be used to access the specified section.
 	 */
-	public CoffSection getSection(int sectionNumber) {
+	public CoffSection getSection(int sectionNumber) 
+	{
 		Lib.assertTrue(sectionNumber >= 0 && sectionNumber < sections.length);
 
 		return sections[sectionNumber];
@@ -121,7 +135,8 @@ public class Coff {
 	 * 
 	 * @return the program entry point.
 	 */
-	public int getEntryPoint() {
+	public int getEntryPoint() 
+	{
 		Lib.assertTrue(file != null);
 
 		return entryPoint;
@@ -131,7 +146,8 @@ public class Coff {
 	 * Close the executable file and release any resources allocated by this
 	 * loader.
 	 */
-	public void close() {
+	public void close() 
+	{
 		file.close();
 
 		sections = null;

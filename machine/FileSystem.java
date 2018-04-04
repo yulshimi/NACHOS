@@ -5,7 +5,8 @@ package nachos.machine;
 /**
  * A file system that allows the user to create, open, and delete files.
  */
-public interface FileSystem {
+public interface FileSystem 
+{
 	/**
 	 * Atomically open a file, optionally creating it if it does not already
 	 * exist. If the file does not already exist and <tt>create</tt> is

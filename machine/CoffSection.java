@@ -10,7 +10,8 @@ import java.util.Arrays;
 /**
  * A <tt>CoffSection</tt> manages a single section within a COFF executable.
  */
-public class CoffSection {
+public class CoffSection 
+{
 	/**
 	 * Allocate a new COFF section with the specified parameters.
 	 * 
@@ -22,7 +23,8 @@ public class CoffSection {
 	 * @param firstVPN the first virtual page number used by this.
 	 */
 	protected CoffSection(Coff coff, String name, boolean executable,
-			boolean readOnly, int numPages, int firstVPN) {
+			boolean readOnly, int numPages, int firstVPN) 
+	{
 		this.coff = coff;
 		this.name = name;
 		this.executable = executable;
@@ -152,7 +154,8 @@ public class CoffSection {
 	 * 
 	 * @return the number of pages in this section.
 	 */
-	public int getLength() {
+	public int getLength() 
+	{
 		return numPages;
 	}
 
@@ -161,7 +164,8 @@ public class CoffSection {
 	 * 
 	 * @return the first virtual page number used by this section.
 	 */
-	public int getFirstVPN() {
+	public int getFirstVPN() 
+	{
 		return firstVPN;
 	}
 
@@ -171,7 +175,8 @@ public class CoffSection {
 	 * @param spn the page number within this segment.
 	 * @param ppn the physical page to load into.
 	 */
-	public void loadPage(int spn, int ppn) {
+	public void loadPage(int spn, int ppn) 
+	{
 		Lib.assertTrue(file != null);
 
 		Lib.assertTrue(spn >= 0 && spn < numPages);
